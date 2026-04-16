@@ -247,6 +247,9 @@
   background: rgba(0,0,0,0.8);
   transform: translate(-50%, -50%) scale(1.1);
 }
+  .project-thumb video {
+  cursor: pointer;
+}
 
   /* SKILLS */
   #skills { background: var(--bg2); }
@@ -777,13 +780,21 @@
     });
   });
 
-  function playVideo(videoId, btn) {
+ function playVideo(videoId, btn) {
+  const videos = document.querySelectorAll('video');
+
+  // pause all videos
+  videos.forEach(v => {
+    if (v.id !== videoId) {
+      v.pause();
+    }
+  });
+
   const video = document.getElementById(videoId);
   video.play();
-  video.setAttribute("controls", "true"); // show controls
-  btn.style.display = "none"; // hide button after click
+  video.setAttribute("controls", "true");
+  btn.style.display = "none";
 }
-
   // FORM
   function handleSubmit(e) {
     e.preventDefault();
