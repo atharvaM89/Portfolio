@@ -177,6 +177,7 @@
 
   /* PROJECTS */
   #projects { background: var(--bg); }
+  
   .carousel { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; scrollbar-width: none; }
   .carousel::-webkit-scrollbar { display: none; }
   .project-card {
@@ -208,6 +209,44 @@
   .carousel-dots { display: flex; gap: 6px; justify-content: center; margin-top: 1.5rem; }
   .c-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s, width 0.2s; }
   .c-dot.active { background: var(--orange); width: 20px; border-radius: 4px; }
+  .video-container {
+  position: relative;
+}
+
+.project-thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Play Button */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.play-btn:hover {
+  background: rgba(0,0,0,0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
 
   /* SKILLS */
   #skills { background: var(--bg2); }
@@ -444,10 +483,18 @@
     <h2 class="section-heading reveal">Projects</h2>
     <div class="reveal">
       <div class="carousel" id="carousel">
-
         <div class="project-card">
-          <div class="project-thumb">
-  <img src="assets/shield.png" alt="Shield Project" style="width:100%; height:100%; object-fit:cover;">
+
+       <div class="project-thumb video-container">
+
+  <video id="shieldVideo" poster="assets/shield.png">
+    <source src="assets/shield.mp4" type="video/mp4">
+  </video>
+
+  <button class="play-btn" onclick="playVideo('shieldVideo', this)">
+    ▶
+  </button>
+
 </div>
           <div class="project-body">
             <div class="project-header-row">
@@ -463,10 +510,17 @@
         </div>
 
         <div class="project-card">
-          <div class="project-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#0a3d2e,#062218)"></div>
-            <div class="thumb-icon">🎓</div>
-          </div>
+         <div class="project-thumb video-container">
+  
+  <video id="internshipvideo" poster="assets/internship.png">
+    <source src="assets/intern.mp4" type="video/mp4">
+  </video>
+
+  <button class="play-btn" onclick="playVideo('internshipvideo', this)">
+    ▶
+  </button>
+
+</div>
           <div class="project-body">
             <div class="project-header-row">
               <div class="project-title">Internship Allocation System</div>
@@ -478,10 +532,17 @@
         </div>
 
          <div class="project-card">
-          <div class="project-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#003333,#001a1a)"></div>
-            <div class="thumb-icon">🏸</div>
-          </div>
+          <div class="project-thumb video-container">
+  
+  <video id="smashvideo" poster="assets/smash.png">
+    <source src="assets/smash.mp4" type="video/mp4">
+  </video>
+
+  <button class="play-btn" onclick="playVideo('smashvideo', this)">
+    ▶
+  </button>
+
+</div>
           <div class="project-body">
             <div class="project-header-row">
               <div class="project-title">SmashZone</div>
@@ -715,6 +776,13 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  function playVideo(videoId, btn) {
+  const video = document.getElementById(videoId);
+  video.play();
+  video.setAttribute("controls", "true"); // show controls
+  btn.style.display = "none"; // hide button after click
+}
 
   // FORM
   function handleSubmit(e) {
